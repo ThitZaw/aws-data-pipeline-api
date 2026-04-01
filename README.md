@@ -53,3 +53,20 @@ FastAPI → API Gateway → Lambda → S3
 **Tech Used:**
 - FastAPI
 - Uvicorn
+
+### Step 2 — PostgreSQL with Docker ✅
+
+**connecting fastapi with postgre:**
+- Set up PostgreSQL using Docker
+- Connected FastAPI (local) to PostgreSQL container
+- Created database model for file records
+- Stored uploaded file metadata in database
+
+**Tech Used:**
+- PostgreSQL
+- Docker
+- SQLAlchemy
+
+**Notes:**
+- Learned how to run databases in containers
+- Connected local backend to containerized database
