@@ -70,3 +70,26 @@ FastAPI → API Gateway → Lambda → S3
 **Notes:**
 - Learned how to run databases in containers
 - Connected local backend to containerized database
+
+### Step 3 — AWS S3 Integration (Raw Data Storage) ✅
+
+**upload raw file to S3**
+- Created an S3 bucket for data storage
+- Integrated FastAPI with AWS S3 using boto3
+- Uploaded raw CSV files to S3 (`raw/` folder)
+- Stored S3 file path (`s3_path`) in PostgreSQL
+- Updated database schema to include S3 reference
+
+**Tech Used:**
+- AWS S3
+- boto3 (AWS SDK for Python)
+- FastAPI
+- PostgreSQL
+
+**Workflow:**
+1. User uploads file via API  
+2. File is saved locally (temporary)  
+3. File is uploaded to S3 (`raw/` bucket path)  
+4. S3 file path is stored in PostgreSQL  
+
+**Example S3 Path:**
