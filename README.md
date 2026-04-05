@@ -17,7 +17,7 @@ This project was built to demonstrate hands-on experience with AWS cloud service
 
 ## Architecture
 
-FastAPI → API Gateway → Lambda → S3  
+FastAPI → API Gateway → Lambda → S3 → Athena → Dashboard 
                          ↓  
                     PostgreSQL
 
@@ -26,10 +26,10 @@ FastAPI → API Gateway → Lambda → S3
 ## Tech Stack
 
 - Backend: FastAPI (Python)
-- Cloud: AWS (S3, Lambda, API Gateway, IAM)
+- Cloud: AWS (S3, Lambda, API Gateway, IAM , ECR , Cloudwatch)
 - Database: PostgreSQL
 - Version Control: Git
-- (Optional) Docker
+- Containerization : Docker
 
 ---
 
@@ -68,7 +68,6 @@ FastAPI → API Gateway → Lambda → S3
 - SQLAlchemy
 
 **Notes:**
-- Learned how to run databases in containers
 - Connected local backend to containerized database
 
 ### Step 3 — AWS S3 Integration (Raw Data Storage) ✅
@@ -91,5 +90,43 @@ FastAPI → API Gateway → Lambda → S3
 2. File is saved locally (temporary)  
 3. File is uploaded to S3 (`raw/` bucket path)  
 4. S3 file path is stored in PostgreSQL  
+FastAPI (/upload) → Save file (temporary) → Upload to S3 (raw/) → Store S3 path in PostgreSQL
 
-**Example S3 Path:**
+## Step 4 — Data Transformation (CSV → Parquet) ✅
+
+**Convert raw data into analytics-ready format**
+
+- Implemented transformation logic using pandas
+- Read CSV files directly from S3
+- Cleaned and standardized column names
+- Converted CSV → Parquet format
+- Stored processed data in S3 (`processed/` folder)
+
+**Tech Used:**
+- pandas  
+- pyarrow  
+- boto3  
+
+**Workflow:**
+S3 (raw CSV) → Lambda → Transform → S3 (processed Parquet)
+
+---
+
+## Step 5 — Serverless Processing with AWS Lambda (Docker + ECR) ✅
+
+**Automated and scalable data processing pipeline**
+
+- Containerized transformation logic using Docker
+- Built and pushed Docker image to Amazon ECR
+- Deployed AWS Lambda using container image from ECR
+- Configured Lambda handler to process S3 events
+- Integrated Lambda with S3 trigger (PUT event)
+- Automatically processes files uploaded to `raw/`
+
+**Tech Used:**
+- AWS Lambda  
+- Docker  
+- Amazon Elastic Container Registry (ECR)  
+
+**Workflow:**
+FastAPI → Upload CSV → S3 (raw/) → Lambda (Docker via ECR) → Process → S3 (processed/)
