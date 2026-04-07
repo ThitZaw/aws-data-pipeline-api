@@ -9,9 +9,14 @@ This project demonstrates how to design and implement a scalable backend system 
 
 ---
 
-## Why This Project?
+## Project Highlights
 
-This project was built to demonstrate hands-on experience with AWS cloud services, backend API development, and data pipeline design in preparation for backend and data engineering roles.
+- Built end-to-end serverless data pipeline on AWS
+- Implemented event-driven architecture using S3 + Lambda
+- Optimized data storage using Parquet format
+- Integrated AWS Glue for schema management
+- Queried data using Athena (SQL on data lake)
+- Used Docker for scalable Lambda deployment
 
 ---
 
@@ -110,7 +115,7 @@ FastAPI (/upload) → Save file (temporary) → Upload to S3 (raw/) → Store S3
 **Workflow:**
 S3 (raw CSV) → Lambda → Transform → S3 (processed Parquet)
 
----
+
 
 ## Step 5 — Serverless Processing with AWS Lambda (Docker + ECR) ✅
 
@@ -130,3 +135,23 @@ S3 (raw CSV) → Lambda → Transform → S3 (processed Parquet)
 
 **Workflow:**
 FastAPI → Upload CSV → S3 (raw/) → Lambda (Docker via ECR) → Process → S3 (processed/)
+
+## Step 6 — Data Catalog & Query Layer (AWS Glue + Athena) ✅
+
+**Enable querying of processed data using SQL**
+
+- Used AWS Glue Crawler to scan Parquet files in S3
+- Automatically inferred schema and created table in Glue Data Catalog
+- Queried data using Amazon Athena
+- Stored Athena query results in S3
+
+**Tech Used:**
+- AWS Glue (Crawler + Data Catalog)
+- Amazon Athena
+
+**Workflow:**
+S3 (processed Parquet)
+↓
+Glue Crawler → Data Catalog
+↓
+Athena → SQL queries
