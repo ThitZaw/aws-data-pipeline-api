@@ -1,5 +1,5 @@
 # aws-data-pipeline-api
-AWS Data Pipeline API
+Containerized Data Pipeline with FastAPI, Docker, and AWS
 
 ## Description
 
@@ -22,9 +22,17 @@ This project demonstrates how to design and implement a scalable backend system 
 
 ## Architecture
 
-FastAPI → API Gateway → Lambda → S3 → Athena → Dashboard 
-                         ↓  
-                    PostgreSQL
+Client → FastAPI (Docker on EC2)
+        ↓
+     Upload API
+        ↓
+       S3 (raw)
+        ↓ (event trigger)
+     Lambda (Docker via ECR)
+        ↓
+     S3 (processed Parquet)
+        ↓
+   Glue + Athena (query layer) 
 
 ---
 
